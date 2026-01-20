@@ -1,8 +1,4 @@
-install.packages("Seurat")
-install.packages("dplyr")
-install.packages("ggplot2")
-install.packages("RColorBrewer")
-install.packages("stringr")
+
 library(Seurat)
 library(dplyr)
 library(ggplot2)
