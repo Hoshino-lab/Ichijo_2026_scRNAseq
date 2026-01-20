@@ -1,6 +1,6 @@
-# .h5data can be load from ___
+# .h5data can be load from https://doi.org/10.5281/zenodo.16562844
 
-install.packages("hdf5r")
+
 library(hdf5r)
 
 h5_so_SCT <- function(path,project){
@@ -10,21 +10,21 @@ so <- SCTransform(so)
 return(so)
 }
 
-P3Ctrl_n1 <- h5_so_SCT("P3-Control/outs/filtered_feature_bc_matrix.h5",project = "P3_ctr_n1b1")
-P3Ctrl_n2L1 <- h5_so_SCT("P3En1Ctrl-n2_L001/outs/filtered_feature_bc_matrix.h5",project = "P3_ctr_n1l1")
-P3Ctrl_n2L2 <- h5_so_SCT("P3En1Ctrl-n2_L002/outs/filtered_feature_bc_matrix.h5",project = "P3_ctr_n1l2")
+P3Ctrl_n1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P3_ctr_n1b1")
+P3Ctrl_n2L1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P3_ctr_n1l1")
+P3Ctrl_n2L2 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P3_ctr_n1l2")
 
-P3cKO_n1 <- h5_so_SCT("P3-cKO/outs/filtered_feature_bc_matrix.h5",project = "P3_cKO_n1b1")
-P3cKO_n2L1 <- h5_so_SCT("P3En1cKO-n2_L001/outs/filtered_feature_bc_matrix.h5",project = "P3_cKO_n1l1")
-P3cKO_n2L2 <- h5_so_SCT("P3En1cKO-n2_L002/outs/filtered_feature_bc_matrix.h5",project = "P3_cKO_n1l2")
+P3cKO_n1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P3_cKO_n1b1")
+P3cKO_n2L1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P3_cKO_n1l1")
+P3cKO_n2L2 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P3_cKO_n1l2")
 
-P10Ctrl_n1 <- h5_so_SCT("P10-Control/outs/filtered_feature_bc_matrix.h5",project = "P10_ctr_n1b1")
-P10Ctrl_n2L1 <- h5_so_SCT("P10En1Ctrl-n2_L001/outs/filtered_feature_bc_matrix.h5",project = "P10_ctr_n1l1")
-P10Ctrl_n2L2 <- h5_so_SCT("P10En1Ctrl-n2_L002/outs/filtered_feature_bc_matrix.h5",project = "P10_ctr_n1l2")
+P10Ctrl_n1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P10_ctr_n1b1")
+P10Ctrl_n2L1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P10_ctr_n1l1")
+P10Ctrl_n2L2 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P10_ctr_n1l2")
 
-P10cKO_n1 <- h5_so_SCT("P10-cKO/outs/filtered_feature_bc_matrix.h5",project = "P10_cKO_n1b1")
-P10cKO_n2L1 <- h5_so_SCT("P10En1cKO-n2_L001/outs/filtered_feature_bc_matrix.h5",project = "P10_cKO_n1l1")
-P10cKO_n2L2<- h5_so_SCT("P10En1cKO-n2_L002/outs/filtered_feature_bc_matrix.h5",project = "P10_cKO_n1l2")
+P10cKO_n1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P10_cKO_n1b1")
+P10cKO_n2L1 <- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P10_cKO_n1l1")
+P10cKO_n2L2<- h5_so_SCT("filtered_feature_bc_matrix.h5",project = "P10_cKO_n1l2")
 
 so.list <- list(P3Ctrl_n1,P3Ctrl_n2L1,P3Ctrl_n2L2,P3cKO_n1,P3cKO_n2L1,P3cKO_n2L2,
                 P10Ctrl_n1,P10Ctrl_n2L1,P10Ctrl_n2L2,P10cKO_n1,P10cKO_n2L1,P10cKO_n2L2)
