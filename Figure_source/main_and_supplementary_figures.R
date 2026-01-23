@@ -35,20 +35,21 @@ so.combined_mt5 <- FindClusters(so.combined_mt5,resolution = 0.1)
 ncol(so.combined_mt5)
 table(so.combined_mt5 $ seurat_clusters)
 
-
+#sup9.a
 DimPlot(so.combined_mt5, raster = F, label = T, cols = my_colors, label.size = 8)
+#sup9.b.c.d.e
 DimPlot(so.combined_mt5,split.by = "genotype_stage",raster = FALSE,label=TRUE,pt.size = 0.01,ncol = 2, cols = my_colors)&NoAxes()
 
 
 DefaultAssay(so.combined_mt5) <- "SCT"
-VlnPlot(so.combined_mt5,features = c("Pcna","Ccnd1","Hey1","Sfrp1","Reln","Cntn2","Neurod1","Aldoc","Aqp4","Fabp7","Pax2","Gad1","Olig1","Olig2","Ttr","Aif1","Cx3cr1","Pecam1","Vwf","Cxcl12","S100a6","Col1a1","Hba-a1","Hba-a2","Eomes","Rgs5","Vtn","Rsph1","Foxj1","Slc17a6","Tbr1","Calb1","Foxp2"),stack = T, split.by = "seurat_clusters",flip = T, cols = my_colors)+
-  coord_cartesian(clip = "off")
 so.combined_mt5_1 <- so.combined_mt5
 new.cluster.ids1 <- c("GC", "GCP", "GC", "GCP","Astroglial lineage cell", "Undetermined","Inhibitory neuron", "Oligodendrocyte lineage cell","Choroid plexus cell", "Microglia","Endothelial cell","Meningeal cell","Blood cell","Unipolar Blush cell","Pericyte")
 names(new.cluster.ids1) <- levels(so.combined_mt5_1)
 so.combined_mt5_2 <- RenameIdents(so.combined_mt5_1, new.cluster.ids1)
+#Sup9.f
 VlnPlot(so.combined_mt5_2,features = c("Pcna","Ccnd1","Hey1","Sfrp1","Reln","Cntn2","Neurod1","Aldoc","Aqp4","Fabp7","Pax2","Gad1","Olig1","Olig2","Ttr","Aif1","Cx3cr1","Pecam1","Vwf","Cxcl12","S100a6","Col1a1","Hba-a1","Hba-a2","Eomes","Rgs5","Vtn","Rsph1","Foxj1","Slc17a6","Tbr1","Calb1","Foxp2"),stack = T, split.by = "seurat_clusters",flip = T, cols = my_colors)+
   coord_cartesian(clip = "off")
+#Sup9.g
 VlnPlot(so.combined_mt5_2,features = c("Aldoc","Aqp4","Sox2","Sox9","S100b","Fgfr1","Fabp7","Hopx","Meig1","Fam183b","Rsph1"),stack = T, split.by = "seurat_clusters",flip = T, cols = my_colors)+
   coord_cartesian(clip = "off")
 
@@ -68,9 +69,12 @@ saveRDS(ASlin0.5_sc5, "~/Desktop/Ichijo_filtermt5/ASlin0.5_sc5.rds")
 
 DefaultAssay(ASlin0.5_sc5) <- "integrated"
 ASlin0.5_sc5_0.1 <- ASlin0.5_sc5 %>% RunPCA() %>% RunUMAP(dims = 1:30) %>% FindNeighbors(dims = 1:30) %>% FindClusters(resolution = 0.1)
+#Fig1.e
 DimPlot(ASlin0.5_sc5_0.1, raster = F, cols = my_colors,label=T,label.size = 8)
+#Fig1.f
 DimPlot(ASlin0.5_sc5_0.1, raster = F, cols = my_colors, split.by = "genotype",label = T, label.size = 8)
 DefaultAssay(ASlin0.5_sc5_0.1) <- "SCT"
+#Fig1.g
 VlnPlot(ASlin0.5_sc5_0.1, features = c("Sox2","Sox9","Slc6a11","Gria1","Gdf10","Sept4","Mki67"),stack = T, split.by = "seurat_clusters",flip = T, cols = my_colors)+
   coord_cartesian(clip = "off")
 
@@ -82,11 +86,13 @@ merge_AstBG <- merge(BG_like_cell,y=Ast)
 merge_AstBG$genotype <- factor(merge_AstBG$genotype,levels = c("ctr", "cKO"))
 
 DefaultAssay(merge_AstBG) <- "SCT"
+#Fig5.b
 VlnPlot(merge_AstBG, features = "Vim",split.by = "genotype") 
 VlnPlot(merge_AstBG, features = "Zeb2",split.by = "genotype" ) 
-VlnPlot(merge_AstBG, features = "Gria1",split.by = "genotype")
-VlnPlot(merge_AstBG, features = "Slc1a3",split.by = "genotype")
 VlnPlot(merge_AstBG, features = "Tnc",split.by = "genotype")
+VlnPlot(merge_AstBG, features = "Slc1a3",split.by = "genotype")
+VlnPlot(merge_AstBG, features = "Gria1",split.by = "genotype")
+#Sup12.a
 VlnPlot(merge_AstBG, features = "Sept4", split.by = "genotype")
 VlnPlot(merge_AstBG, features = "Adgrg6", split.by = "genotype")
 VlnPlot(merge_AstBG, features = "Sept4", split.by = "genotype")
@@ -99,9 +105,7 @@ markers <- FindAllMarkers(obj, only.pos = TRUE)
 write.csv(markers, "~/Desktop/Ichijo_filtermt5/BG_like_cell_ctrvscKO_mt5.csv")
 
 
-BG_like_cell$genotype_stage_seuratc <- paste(BG_like_cell$genotype_stage, BG_like_cell$seurat_clusters, sep = "_")
-table(BG_like_cell$genotype_stage_seuratc)
-table(Ast$genotype_stage)
 
 merge_AstBG$orig.ident_clusters <- paste(merge_AstBG$orig.ident, merge_AstBG$seurat_clusters,sep = "_")
+#Fig1.h
 table(merge_AstBG$orig.ident_clusters)
