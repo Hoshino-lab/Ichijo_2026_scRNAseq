@@ -58,6 +58,11 @@ VlnPlot(so.combined_mt5_2,features = c("Aldoc","Aqp4","Sox2","Sox9","S100b","Fgf
 saveRDS(so.combined_mt5_2, "~/Desktop/Ichijo_filtermt5/so.combined_mt5_annotated.rds")
 
 ASlin <- subset(so.combined_mt5, idents = 4)
+# Note: In so.combined_mt5_2, the Idents have been replaced with cell-type names.
+# The astroglial lineage corresponds to cluster 4 ("SOX9-positive cell"),
+# so to extract it from the annotated object, use:
+# ASlin <- subset(so.combined_mt5_2, idents = "SOX9-positive cell")
+
 DefaultAssay(ASlin) <- "integrated"
 ASlin0.5 <- ASlin %>% RunPCA() %>% RunUMAP(dims = 1:30) %>% FindNeighbors(dims = 1:30) %>% FindClusters(resolution = 0.5)
 DimPlot(ASlin0.5)
