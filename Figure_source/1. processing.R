@@ -1,5 +1,6 @@
 # .h5data can be load from https://doi.org/10.5281/zenodo.18308841
-installed.packages("Seurat")
+# Packages must be installed before running this script (see readme for versions).
+# If needed, run once: install.packages("Seurat")
 library(Seurat)
 library(hdf5r)
 
