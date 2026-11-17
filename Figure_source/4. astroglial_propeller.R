@@ -4,6 +4,12 @@ library(limma)
 library(dplyr)
 library(tidyr)
 
+# Output directory (relative path; created if it does not exist)
+out_dir <- "results"
+tab_dir <- file.path(out_dir, "tables")
+dir.create(tab_dir, recursive = TRUE, showWarnings = FALSE)
+
+
 # 1. Prepare mouse-level cell counts from the composition analysis
 
 composition_input <- cell_composition
@@ -164,10 +170,10 @@ sensitivity_results <- filter(da_results, transform == "asin")
 
 # 6. Export observed proportions, summary statistics, and test results
 
-write.csv(da_counts, "mouse_level_cell_counts_and_proportions.csv", row.names = FALSE)
-write.csv(da_summary, "group_mean_SD_SEM.csv", row.names = FALSE)
-write.csv(primary_results, "PRIMARY_logit_P3_P10_propeller.csv", row.names = FALSE)
-write.csv(sensitivity_results, "SENSITIVITY_asin_P3_P10_propeller.csv", row.names = FALSE)
+write.csv(da_counts, file.path(tab_dir, "mouse_level_cell_counts_and_proportions.csv"), row.names = FALSE)
+write.csv(da_summary, file.path(tab_dir, "group_mean_SD_SEM.csv"), row.names = FALSE)
+write.csv(primary_results, file.path(tab_dir, "PRIMARY_logit_P3_P10_propeller.csv"), row.names = FALSE)
+write.csv(sensitivity_results, file.path(tab_dir, "SENSITIVITY_asin_P3_P10_propeller.csv"), row.names = FALSE)
 
 print(primary_results)
 
