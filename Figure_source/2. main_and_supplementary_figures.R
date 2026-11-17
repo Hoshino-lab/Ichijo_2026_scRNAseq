@@ -7,6 +7,13 @@ library(stringr)
 my_colors <- c(brewer.pal(12, "Paired"), brewer.pal(5, "Set3"))
 set.seed(777)
 
+# Output directories (relative paths; created if they do not exist)
+out_dir <- "results"
+obj_dir <- file.path(out_dir, "objects")
+tab_dir <- file.path(out_dir, "tables")
+for (d in c(obj_dir, tab_dir)) dir.create(d, recursive = TRUE, showWarnings = FALSE)
+
+
 so.combined <- ScaleData(so.combined)
 so.combined <- RunPCA(so.combined)
 so.combined <- RunUMAP(so.combined,dims = 1:30)
@@ -55,7 +62,7 @@ VlnPlot(so.combined_mt5_2,features = c("Pcna","Ccnd1","Hey1","Sfrp1","Reln","Cnt
 VlnPlot(so.combined_mt5_2,features = c("Aldoc","Aqp4","Sox2","Sox9","S100b","Fgfr1","Fabp7","Hopx","Meig1","Fam183b","Rsph1"),stack = T, split.by = "seurat_clusters",flip = T, cols = my_colors)+
   coord_cartesian(clip = "off")
 
-saveRDS(so.combined_mt5_2, "~/Desktop/Ichijo_filtermt5/so.combined_mt5_annotated.rds")
+saveRDS(so.combined_mt5_2, file.path(obj_dir, "so.combined_mt5_annotated.rds"))
 
 ASlin <- subset(so.combined_mt5, idents = 4)
 # Note: In so.combined_mt5_2, the Idents have been replaced with cell-type names.
@@ -72,7 +79,7 @@ VlnPlot(ASlin0.5, features = c("Sox2","Sox9","Slc6a11","Gria1","Gdf10","Sept4","
 
 ASlin0.5_sc5 <- subset(ASlin0.5, idents = c(0,1,2,6,7)) # remove sc3,4,5 for low slc6a11 Glia1, Gdf10, Sept4 expression level
 
-saveRDS(ASlin0.5_sc5, "~/Desktop/Ichijo_filtermt5/ASlin0.5_sc5.rds")
+saveRDS(ASlin0.5_sc5,file.path(obj_dir, "ASlin0.5_sc5.rds"))
 
 DefaultAssay(ASlin0.5_sc5) <- "integrated"
 ASlin0.5_sc5_0.1 <- ASlin0.5_sc5 %>% RunPCA() %>% RunUMAP(dims = 1:30) %>% FindNeighbors(dims = 1:30) %>% FindClusters(resolution = 0.1)
@@ -109,29 +116,27 @@ DefaultAssay(BG_like_cell) <-"SCT"
 Idents(BG_like_cell) <- "genotype"
 obj <- PrepSCTFindMarkers(BG_like_cell)
 markers <- FindMarkers(obj, ident.1="cKO", ident.2 ="ctr",only.pos = FALSE)
-write.csv(markers, "~/Desktop/Ichijo_revise_1020/BG_like_cell_ctrvscKO_mt5_findmarkers.csv")
-
-
+write.csv(markers,file.path(tab_dir, "BG_like_cell_ctrvscKO_mt5_findmarkers.csv"))
 
 DefaultAssay(Ast) <- "SCT"
 Idents(Ast) <- "genotype"
 obj0 <- PrepSCTFindMarkers(Ast)
 markers0 <- FindMarkers(obj0, ident.1="cKO", ident.2 ="ctr",only.pos = FALSE)
-write.csv(markers0, "~/Desktop/Ichijo_revise_1020/Ast_ctrvscKO_mt5_findmarkers.csv")
+write.csv(markers0, file.path(tab_dir, "Ast_ctrvscKO_mt5_findmarkers.csv"))
 
 BG <- subset(ASlin0.5_sc5_0.1, idents = 1)
 DefaultAssay(BG) <-"SCT"
 Idents(BG) <- "genotype"
 obj1 <- PrepSCTFindMarkers(BG)
 markers1 <- FindMarkers(obj1, ident.1="cKO", ident.2 ="ctr",only.pos = FALSE)
-write.csv(markers1, "~/Desktop/BG_ctrvscKO_mt5_findmarkers.csv")
+write.csv(markers1, file.path(tab_dir, "BG_ctrvscKO_mt5_findmarkers.csv"))
 
 BGLP <- subset(ASlin0.5_sc5_0.1, idents = 2)
 DefaultAssay(BGLP) <-"SCT"
 Idents(BGLP) <- "genotype"
 obj2 <- PrepSCTFindMarkers(BGLP)
 markers2 <- FindMarkers(obj2, ident.1="cKO", ident.2 ="ctr",only.pos = FALSE)
-write.csv(markers2, "~/Desktop/BGLP_ctrvscKO_mt5_findmarkers.csv")
+write.csv(markers2, file.path(tab_dir, "BGLP_ctrvscKO_mt5_findmarkers.csv"))
 
 
 
