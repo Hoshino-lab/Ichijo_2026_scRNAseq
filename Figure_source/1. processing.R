@@ -1,6 +1,6 @@
-# .h5data can be load from https://doi.org/10.5281/zenodo.16562844
-
-
+# .h5data can be load from https://doi.org/10.5281/zenodo.18308841
+installed.packages("Seurat")
+library(Seurat)
 library(hdf5r)
 
 h5_so_SCT <- function(path,project){
@@ -12,7 +12,7 @@ return(so)
 
 P3ctrl_n1 <- h5_so_SCT("P3_ctr_n1b1_filtered_feature_bc_matrix.h5",project = "P3_ctr_n1b1")
 P3ctrl_n2L1 <- h5_so_SCT("P3_ctr_n1l1_filtered_feature_bc_matrix.h5",project = "P3_ctr_n1l1")
-P3ctrl_n2L2 <- h5_so_SCT("P3_ctr_n1l2filtered_feature_bc_matrix.h5",project = "P3_ctr_n1l2")
+P3ctrl_n2L2 <- h5_so_SCT("P3_ctr_n1l2_filtered_feature_bc_matrix.h5",project = "P3_ctr_n1l2")
 
 P3cKO_n1 <- h5_so_SCT("P3_cKO_n1b1_filtered_feature_bc_matrix.h5",project = "P3_cKO_n1b1")
 P3cKO_n2L1 <- h5_so_SCT("P3_cKO_n1l1_filtered_feature_bc_matrix.h5",project = "P3_cKO_n1l1")
