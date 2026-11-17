@@ -22,7 +22,6 @@ so.combined$genotype_stage <- paste(so.combined$genotype, so.combined$stage, sep
 so.combined_mt5 <- so.combined
 DefaultAssay(so.combined_mt5) <-"RNA"
 so.combined_mt5[["percent.mt"]] <- PercentageFeatureSet(so.combined_mt5, pattern = "^mt-")
-so.combined_mt5 $ orig_Cluster <- so.combined_mt5 $seurat_clusters
 so.combined_mt5 <- subset(so.combined_mt5, nFeature_RNA > 200 & percent.mt <5 )
 DefaultAssay(so.combined_mt5) <- "integrated"
 so.combined_mt5 <- ScaleData(so.combined_mt5)
