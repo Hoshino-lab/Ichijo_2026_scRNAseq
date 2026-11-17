@@ -2,6 +2,11 @@
 
 library(tidyr)
 
+# Output directory (relative path; created if it does not exist)
+out_dir <- "results"
+fig_dir <- file.path(out_dir, "figures")
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+
 
 # 1. Extract metadata and assign cell types and mouse IDs
 
@@ -239,11 +244,12 @@ p_mean_upper_sem <- ggplot() +
 
 #sup7.j
 print(p_by_mouse)
-ggsave("01_composition_by_mouse.png", p_by_mouse,
+ggsave(file.path(fig_dir, "01_composition_by_mouse.png"), p_by_mouse,
        width = 12, height = 6.5, units = "in", dpi = 300, bg = "white")
+
 #fig2.d
 print(p_mean_upper_sem)
-ggsave("02_composition_mean_upper_SEM.png", p_mean_upper_sem,
+ggsave(file.path(fig_dir, "02_composition_mean_upper_SEM.png"), p_mean_upper_sem,
        width = 10, height = 6.5, units = "in", dpi = 300, bg = "white")
 
 
